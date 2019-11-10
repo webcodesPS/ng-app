@@ -1,1 +1,9 @@
-<p>home works!</p>
+<app-home-header></app-home-header>
+
+<mat-grid-list cols="1" rowHeight="4:1">
+  <mat-grid-tile>
+    <div class="home-content">
+      <p *ngIf="content">{{ content.data }}</p>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
