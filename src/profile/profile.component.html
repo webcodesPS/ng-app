@@ -1,0 +1,8 @@
+<h4>Profile</h4>
+<div>
+  <h6>User: </h6>
+  <div *ngIf="loading"></div>
+  <div *ngIf="user">
+    ID: {{ user.id }} Login: {{ user.login }} email: {{ user.email }}
+  </div>
+</div>

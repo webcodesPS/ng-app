@@ -4,6 +4,8 @@
   <mat-grid-tile>
     <div class="home-content">
       <p *ngIf="content">{{ content.data }}</p>
+
+      <router-outlet></router-outlet>
     </div>
   </mat-grid-tile>
 </mat-grid-list>

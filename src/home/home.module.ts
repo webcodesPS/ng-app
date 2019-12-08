@@ -1,12 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
+import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/shared/material.module';
-import {HomeHeaderComponent} from './home-header/home-header.component';
+import { HomeHeaderComponent } from './home-header/home-header.component';
 
 @NgModule({
   declarations: [
@@ -14,11 +12,10 @@ import {HomeHeaderComponent} from './home-header/home-header.component';
     HomeHeaderComponent
   ],
   imports: [
-    BrowserModule,
     HomeRoutingModule,
-    BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

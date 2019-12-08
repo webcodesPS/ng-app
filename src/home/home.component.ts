@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { environment } from '../environments/environment';
 
 export interface Content {
   data?: string;
@@ -12,18 +12,19 @@ export interface Content {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  loading = false;
   public content: Content;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
+    this.loading = true;
+
     this.sendGetRequest().subscribe(res => this.content = res);
   }
 
   sendGetRequest() {
-    return this.httpClient.get(this.apiUrl);
+    return this.httpClient.get(`${environment.apiUrl}`);
   }
 
 }
