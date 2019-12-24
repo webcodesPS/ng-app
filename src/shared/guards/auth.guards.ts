@@ -7,13 +7,13 @@ import {
   UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from '../../services/authentication.service';
+import { SessionService } from '../../services/session.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuards implements CanActivate {
   constructor(
     private route: Router,
-    private authenticationService: AuthenticationService
+    private sessionSvc: SessionService
   ) {}
 
   canActivate(
@@ -24,7 +24,7 @@ export class AuthGuards implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const token = this.authenticationService.getToken();
+    const token = this.sessionSvc.getToken();
     if (token) {
       return true;
     }

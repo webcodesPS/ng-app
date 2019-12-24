@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
 import { environment } from '../environments/environment';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+  private isRefreshInProgressSource: BehaviorSubject<
+    boolean
+    > = new BehaviorSubject<boolean>(false);
+  public isRefreshInProgress: Observable<
+    boolean
+    > = this.isRefreshInProgressSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -21,25 +27,5 @@ export class AuthenticationService {
           return res;
         })
       );
-  }
-
-  public getToken(): string {
-    return this.token;
-  }
-
-  private set token(value: string) {
-    if (value) {
-      localStorage.setItem('token', value);
-    } else {
-      localStorage.removeItem('token');
-    }
-  }
-
-  private get token(): string {
-    return localStorage.getItem('token');
-  }
-
-  logout() {
-    localStorage.removeItem('token');
   }
 }

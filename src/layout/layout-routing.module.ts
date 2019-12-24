@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home.component';
+import { LayoutComponent } from './layout.component';
+import { AuthGuards } from '../shared/guards/auth.guards';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: LayoutComponent,
     children: [
       {
         path: 'login',
@@ -15,10 +16,25 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'profile',
+        canActivate: [AuthGuards],
+        loadChildren: () =>
+          import('../profile/profile.module').then(
+            mod => mod.ProfileModule
+          ),
+      },
+      {
         path: 'test',
         loadChildren: () =>
           import('../test/test.module').then(
             mod => mod.TestModule
+          ),
+      },
+      {
+        path: '**',
+        loadChildren: () =>
+          import('../page/page.module').then(
+            mod => mod.PageModule
           ),
       }
     ]
@@ -29,4 +45,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HomeRoutingModule { }
+export class LayoutRoutingModule { }

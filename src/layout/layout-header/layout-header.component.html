@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-raised-button routerLink="">
+      <mat-icon>home</mat-icon>
+      {{ 'HOME_PAGE' | translate }}
+    </button>
+    <div *ngFor="let m of menu">
+      <button mat-button *ngIf="m.page" [routerLink]="['/' + m.page.slug]">
+        {{ m.contents['0'].content }}
+      </button>
+    </div>
+    <span class="spacer"></span>
+
+    <button mat-button routerLink="/profile">{{ 'USR_PROFILE' | translate }}</button>
+
+    <button mat-button (click)="useLanguage('pl')">pl</button>
+    <button mat-button (click)="useLanguage('en')">en</button>
+    <button mat-button *ngIf="sessionSvc.isLoggedInSync | async" (tap)="logout()">Logout</button>
+    <button mat-button *ngIf="!(sessionSvc.isLoggedInSync | async)" routerLink="/login">Login</button>
+  </mat-toolbar-row>
+</mat-toolbar>

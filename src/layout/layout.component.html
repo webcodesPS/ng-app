@@ -1,10 +1,8 @@
-<app-home-header></app-home-header>
+<app-layout-header></app-layout-header>
 
 <mat-grid-list cols="1" rowHeight="4:1">
   <mat-grid-tile>
-    <div class="home-content">
-      <p *ngIf="content">{{ content.data }}</p>
-
+    <div class="layout-content">
       <router-outlet></router-outlet>
     </div>
   </mat-grid-tile>
