@@ -1,11 +1,18 @@
 :host {
   .logo {
-    color: ghostwhite;
     text-decoration: none;
     margin-right: 20px;
   }
 
   .spacer {
-    flex: 1 1 auto;
+    flex: auto;
+  }
+
+  mat-toolbar {
+    mat-button-toggle-group {
+      mat-button-toggle {
+        background-color: ghostwhite;
+      }
+    }
   }
 }

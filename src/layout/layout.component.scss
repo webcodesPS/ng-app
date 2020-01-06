@@ -1,6 +1,18 @@
 :host {
   .layout-content {
+    background: #ffffff;
+    margin: 30px;
     padding: 30px;
-    background-color: ghostwhite;
+  }
+
+  .layout-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .layout-sidenav {
+    padding: 20px;
+    min-width: 200px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
   }
 }

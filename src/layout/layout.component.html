@@ -1,9 +1,20 @@
 <app-layout-header></app-layout-header>
 
-<mat-grid-list cols="1" rowHeight="4:1">
-  <mat-grid-tile>
+<mat-drawer-container class="layout-container" autosize>
+  <mat-drawer #drawer class="layout-sidenav" mode="side" opened="true">
+    <button mat-button routerLink="">
+      <mat-icon>home</mat-icon>
+      {{ 'HOME_PAGE' | translate }}
+    </button>
+    <div *ngFor="let m of menu">
+      <button mat-button *ngIf="m.page" [routerLink]="['/' + m.page.slug]">
+        {{ m.contents['0'].content }}
+      </button>
+    </div>
+  </mat-drawer>
+  <div class="layout-sidenav-content">
     <div class="layout-content">
       <router-outlet></router-outlet>
     </div>
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+</mat-drawer-container>

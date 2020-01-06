@@ -27,6 +27,8 @@ $ng-app-theme: mat-light-theme($ng-app-primary, $ng-app-accent, $ng-app-warn);
 
 /* You can add global styles to this file, and also import other style files */
 
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 @import './variables.scss';
 
 html,
@@ -42,4 +44,56 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+
+.mat-toolbar {
+  position: relative;
+  z-index: 2;
+  font: unset;
+
+  &.mat-primary {
+    background: rgb(16,74,0);
+    background: linear-gradient(90deg, rgba(16,74,0,1) 0%, rgba(110,0,102,1) 34%, rgba(85,0,255,1) 100%);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+  }
+}
+
+.ng-select {
+  min-width: 400px;
+
+  &.ng-select-multiple {
+    .ng-select-container {
+      .ng-value-container {
+        .ng-value {
+          background-color: #e2defd;
+        }
+        .ng-placeholder {
+          top: 7px;
+        }
+      }
+    }
+  }
+
+  .ng-select-container {
+    background-color: #fff;
+    border-radius: 0px;
+    border: 1px solid #ccc;
+    min-height: 36px;
+    align-items: center;
+  }
+}
+
+.ng-dropdown-panel {
+  .ng-dropdown-panel-items {
+    .ng-option {
+      &.ng-option-selected {
+        background-color: #f3f2ff;
+
+        &.ng-option-marked {
+          background-color: #f3f2ff;
+        }
+      }
+    }
+  }
 }

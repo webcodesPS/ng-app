@@ -6,6 +6,8 @@ import { LayoutComponent } from './layout.component';
 import { MaterialModule } from 'src/shared/material.module';
 import { LayoutHeaderComponent } from './layout-header/layout-header.component';
 import {TranslateModule} from '@ngx-translate/core';
+import { NgSelectModule } from '@ng-select/ng-select';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,10 @@ import {TranslateModule} from '@ngx-translate/core';
     MaterialModule,
     HttpClientModule,
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [LayoutComponent]

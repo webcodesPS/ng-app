@@ -1,21 +1,59 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-raised-button routerLink="">
-      <mat-icon>home</mat-icon>
-      {{ 'HOME_PAGE' | translate }}
+
+    <button mat-button (click)="toggleDrawer()">
+      <mat-icon>reorder</mat-icon>
     </button>
-    <div *ngFor="let m of menu">
-      <button mat-button *ngIf="m.page" [routerLink]="['/' + m.page.slug]">
-        {{ m.contents['0'].content }}
-      </button>
-    </div>
+
     <span class="spacer"></span>
 
-    <button mat-button routerLink="/profile">{{ 'USR_PROFILE' | translate }}</button>
+    <form [formGroup]="searchForm">
+      <mat-button-toggle-group appearance="legacy">
+        <ng-select
+          bindLabel="company"
+          appendTo="body"
+          multiple="true"
+          formControlName="elements"
+          [placeholder]="'SELECT_INGREDIENTS' | translate"
+          [closeOnSelect]="false"
+        >
+          <ng-option *ngFor="let item of elements" [value]="item.id">{{
+              item.name
+            }}</ng-option>
+        </ng-select>
+        <mat-button-toggle (tap)="onSubmit()">
+          <mat-icon>gps_fixed</mat-icon>
+          {{ 'SEARCH' | translate }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </form>
 
-    <button mat-button (click)="useLanguage('pl')">pl</button>
-    <button mat-button (click)="useLanguage('en')">en</button>
-    <button mat-button *ngIf="sessionSvc.isLoggedInSync | async" (tap)="logout()">Logout</button>
-    <button mat-button *ngIf="!(sessionSvc.isLoggedInSync | async)" routerLink="/login">Login</button>
+    <span class="spacer"></span>
+
+    <button mat-button routerLink="/profile">
+      {{ 'USR_PROFILE' | translate }}
+    </button>
+    <button
+      mat-button
+      *ngIf="sessionSvc.isLoggedInSync | async"
+      (tap)="logout()"
+    >
+      Logout
+    </button>
+    <button
+      mat-button
+      *ngIf="!(sessionSvc.isLoggedInSync | async)"
+      routerLink="/login"
+    >
+      Login
+    </button>
+    <button mat-button (click)="useLanguage('pl')">
+      <span class="flag-icon flag-icon-pl flag-icon-squared"></span>
+      PL
+    </button>
+    <button mat-button (click)="useLanguage('en')">
+      <span class="flag-icon flag-icon-gb flag-icon-squared"></span>
+      EN
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
