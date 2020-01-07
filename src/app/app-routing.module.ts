@@ -6,11 +6,12 @@ import { ProfileModule } from '../profile/profile.module';
 import { PageModule } from '../page/page.module';
 
 const routes: Routes = [
-  { path: '', loadChildren: () =>
-      import('../layout/layout.module').then(mod => mod.LayoutModule) },
 
-  // { path: '**', loadChildren: () =>
-  //     import('../page/page.module').then(mod => mod.PageModule) }
+  { path: '', loadChildren: () =>
+      import('../layout/layout.module').then(mod => mod.LayoutModule) }
+
+  // { path: '', loadChildren: () =>
+  //     import('../search/search.module').then(mod => mod.SearchModule) },
   // { path: '**', redirectTo: '' }
 ];
 

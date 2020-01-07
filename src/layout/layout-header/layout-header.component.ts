@@ -55,7 +55,9 @@ export class LayoutHeaderComponent implements OnInit {
   get form() { return this.searchForm.controls; }
 
   onSubmit() {
-    console.log(this.form.elements.value);
+    if (this.form.elements.value) {
+      this.router.navigate([], { queryParams: { ids: this.form.elements.value } });
+    }
   }
 
   useLanguage(language: string) {

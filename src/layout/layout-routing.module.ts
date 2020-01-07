@@ -9,6 +9,13 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
+        path: '',
+        loadChildren: () =>
+          import('../search/search.module').then(
+            mod => mod.SearchModule
+          ),
+      },
+      {
         path: 'login',
         loadChildren: () =>
           import('../login/login.module').then(
