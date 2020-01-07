@@ -21,5 +21,9 @@ export class AppComponent {
         ? this.languageSvc.getLanguage()
         : translate.getDefaultLang()
     );
+
+    if (this.languageSvc.getLanguage() === null) {
+      this.languageSvc.setLanguage(translate.getDefaultLang());
+    }
   }
 }
