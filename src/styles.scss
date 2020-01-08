@@ -93,7 +93,12 @@ body {
         &.ng-option-marked {
           background-color: #f3f2ff;
         }
+        .ng-option-label,
+        &.ng-option-marked .ng-option-label {
+          font-weight: 500;
+        }
       }
     }
   }
 }
+

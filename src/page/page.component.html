@@ -1,5 +1,5 @@
 <div *ngFor="let item of content">
   <div *ngFor="let c of item.contents">
-    <div [innerHTML]="c.content"></div>
+    <div [innerHTML]="c.content | safeHtml"></div>
   </div>
 </div>

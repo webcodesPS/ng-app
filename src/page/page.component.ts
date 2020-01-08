@@ -4,6 +4,8 @@ import { environment } from '../environments/environment';
 import { NavigationEnd, Router } from '@angular/router';
 import { LanguageService } from '../services/language.service';
 import { Helper } from '../helpers/helper';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-test',
@@ -11,8 +13,8 @@ import { Helper } from '../helpers/helper';
   styleUrls: ['./page.component.scss']
 })
 export class PageComponent implements OnInit, OnDestroy {
+  unsubscribe: Subject<void> = new Subject<void>();
   public content: any;
-  public subscription: any;
 
   constructor(
     private httpClient: HttpClient,
@@ -23,7 +25,7 @@ export class PageComponent implements OnInit, OnDestroy {
       return false;
     };
 
-    this.subscription = this.router.events.subscribe((event) => {
+    this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.router.navigated = false;
       }
@@ -37,18 +39,19 @@ export class PageComponent implements OnInit, OnDestroy {
       this.router.url
     );
 
-    this.sendGetRequest(uri).subscribe(res => {
-      this.content = res;
-    });
+    this.sendGetRequest(uri)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(res => {
+        this.content = res;
+      });
   }
 
   sendGetRequest(uri) {
     return this.httpClient.get(uri);
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 }
