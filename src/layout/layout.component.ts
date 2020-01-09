@@ -4,11 +4,20 @@ import { MatDrawerService } from '../services/mat-drawer.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { LanguageService } from '../services/language.service';
+import {trigger, style, animate, transition} from '@angular/animations';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
+  animations: [
+    trigger('fade', [
+      transition('void => *', [
+        style({ opacity: 0 }),
+        animate(300, style({opacity: 1}))
+      ])
+    ])
+  ]
 })
 export class LayoutComponent implements OnInit {
   menu: any = [];
