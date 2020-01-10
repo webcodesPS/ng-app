@@ -9,6 +9,7 @@ import { NgSelectConfig } from '@ng-select/ng-select';
 import { forkJoin, Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDrawerService } from '../../services/mat-drawer.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-layout-header',
@@ -28,7 +29,8 @@ export class LayoutHeaderComponent implements OnInit {
     private config: NgSelectConfig,
     private formBuilder: FormBuilder,
     private matDrawerSvc: MatDrawerService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private menuSvc: MenuService
   ) {}
 
   private _requestDataFromMultipleSources(): Observable<any[]> {
@@ -39,6 +41,8 @@ export class LayoutHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.menuSvc.loadAll();
+
     this._requestDataFromMultipleSources().subscribe(responseList => {
       this.elements = responseList[0];
     });

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { LanguageService } from '../services/language.service';
 import {trigger, style, animate, transition} from '@angular/animations';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-layout',
@@ -27,13 +28,14 @@ export class LayoutComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private languageSvc: LanguageService,
-    private matDrawerSvc: MatDrawerService
+    private matDrawerSvc: MatDrawerService,
+    private menuSvc: MenuService
   ) {}
 
   ngOnInit() {
-    const url = `${environment.apiUrl}/${this.languageSvc.getLanguage()}`;
+    // this.http.get(`${environment.apiUrl}/${this.languageSvc.getLanguage()}`).subscribe(res => this.menu = res);
 
-    this.http.get(`${url}/menu`).subscribe(res => this.menu = res);
+    this.menuSvc.menu.subscribe(res => this.menu = res);
 
     this.matDrawerSvc.setDrawer(this.drawer);
   }

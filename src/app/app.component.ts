@@ -3,6 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import defaultLanguage from '../assets/i18n/en.json';
 import { LanguageService } from '../services/language.service';
 import { environment } from '../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +12,15 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
   constructor(
     public translate: TranslateService,
-    private languageSvc: LanguageService
+    private languageSvc: LanguageService,
+    private http: HttpClient,
+    private menuSvc: MenuService
   ) {
+    // this.menuSvc.loadAll();
+
     translate.setTranslation('en', defaultLanguage);
     translate.setDefaultLang(environment.language);
     translate.use(
