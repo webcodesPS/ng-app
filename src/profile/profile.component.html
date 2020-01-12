@@ -1,8 +1,17 @@
-<h4>{{ 'USR_PROFILE' | translate }}</h4>
-<div>
-  <h6>User: </h6>
-  <div *ngIf="loading"></div>
-  <div *ngIf="user">
-    ID: {{ user.id }} Login: {{ user.login }} email: {{ user.email }}
-  </div>
-</div>
+<h4>{{ 'USER_PROFILE' | translate }}</h4>
+
+<mat-list>
+  <h3 mat-subheader>{{ 'USER' | translate }}:</h3>
+  <mat-list-item *ngIf="user">
+    <mat-icon mat-list-icon>email</mat-icon>
+    <h4 mat-line>Email</h4>
+    <p mat-line> {{ user.email }} </p>
+  </mat-list-item>
+  <mat-list-item *ngIf="user">
+    <mat-icon mat-list-icon>people</mat-icon>
+    <h4 mat-line>{{ 'ROLE' | translate }}</h4>
+    <p mat-line> {{ user.roles }} </p>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</mat-list>
+

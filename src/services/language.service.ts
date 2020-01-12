@@ -1,18 +1,36 @@
 import { Injectable } from '@angular/core';
+import defaultLanguage from '../assets/i18n/en.json';
+import { environment } from '../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
-  constructor() { }
+
+  constructor(public translate: TranslateService) {}
+
+  loadLanguage(): void {
+    this.translate.setTranslation('en', defaultLanguage);
+    this.translate.setDefaultLang(environment.language);
+    this.translate.use(
+      this.getLanguage() !== null
+        ? this.getLanguage()
+        : this.translate.getDefaultLang()
+    );
+
+    if (this.getLanguage() === null) {
+      this.setLanguage(this.translate.getDefaultLang());
+    }
+  }
 
   public setLanguage(language: string): void {
-    this.language = language;
+    LanguageService.language = language;
   }
 
   public getLanguage(): string | null {
-    return this.language;
+    return LanguageService.language;
   }
 
-  private set language(value: string) {
+  private static set language(value: string) {
     if (!value) {
       localStorage.removeItem('language');
     } else {
@@ -20,7 +38,7 @@ export class LanguageService {
     }
   }
 
-  private get language(): string {
+  private static get language(): string {
     return localStorage.getItem('language');
   }
 }

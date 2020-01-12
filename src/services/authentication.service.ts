@@ -15,7 +15,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string) {
+  login(username: string, password: string): Observable<{}> {
     return this.http
       .post<any>(`${environment.apiUrl}/login_check`, { username, password })
       .pipe(

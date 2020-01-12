@@ -24,14 +24,16 @@ export class AuthInterceptor implements HttpInterceptor {
       first(),
       switchMap(() => next.handle(this.addAuthHeader(req))),
       tap(res => {
-        if (!(res instanceof HttpResponse)) return;
+        if (!(res instanceof HttpResponse)) { return; }
         if (res.body.token) {
           this.sessionSvc.start(res.body.token);
         }
       }),
       catchError(err => {
-        // if (err.status === 401)
-        // this.sessionSvc.terminate();
+        // console.log('AuthInterceptor: ', err.status);
+        if (err.status === 401) {
+          this.sessionSvc.terminate();
+        }
         return throwError(err);
       })
     );

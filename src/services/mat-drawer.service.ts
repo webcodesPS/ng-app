@@ -7,7 +7,7 @@ import { MatDrawer } from '@angular/material';
 export class MatDrawerService {
   private drawer: MatDrawer;
 
-  setDrawer(drawer: MatDrawer) {
+  setDrawer(drawer: MatDrawer): void {
     this.drawer = drawer;
   }
 

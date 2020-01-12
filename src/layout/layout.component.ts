@@ -26,17 +26,12 @@ export class LayoutComponent implements OnInit {
   @ViewChild('drawer', { static: true }) public drawer: MatDrawer;
 
   constructor(
-    private http: HttpClient,
-    private languageSvc: LanguageService,
-    private matDrawerSvc: MatDrawerService,
-    private menuSvc: MenuService
+    private menuSvc: MenuService,
+    private matDrawerSvc: MatDrawerService
   ) {}
 
   ngOnInit() {
-    // this.http.get(`${environment.apiUrl}/${this.languageSvc.getLanguage()}`).subscribe(res => this.menu = res);
-
     this.menuSvc.menu.subscribe(res => this.menu = res);
-
     this.matDrawerSvc.setDrawer(this.drawer);
   }
 }

@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../../services/session.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgSelectConfig } from '@ng-select/ng-select';
-import { forkJoin, Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDrawerService } from '../../services/mat-drawer.service';
 import { MenuService } from '../../services/menu.service';
+import { ElementService } from '../../services/element.service';
 
 @Component({
   selector: 'app-layout-header',
@@ -21,56 +19,45 @@ export class LayoutHeaderComponent implements OnInit {
   elements: any = [];
 
   constructor(
+    public translate: TranslateService,
     private sessionSvc: SessionService,
-    private http: HttpClient,
     private languageSvc: LanguageService,
     private router: Router,
     private route: ActivatedRoute,
-    private config: NgSelectConfig,
     private formBuilder: FormBuilder,
     private matDrawerSvc: MatDrawerService,
-    public translate: TranslateService,
-    private menuSvc: MenuService
+    private menuSvc: MenuService,
+    private elementSvc: ElementService
   ) {}
 
-  private _requestDataFromMultipleSources(): Observable<any[]> {
-    const url = `${environment.apiUrl}/${this.languageSvc.getLanguage()}`;
-    const elements = this.http.get(`${url}/elements`);
-
-    return forkJoin([elements]);
-  }
-
   ngOnInit(): void {
-    this.menuSvc.loadAll();
-
-    this._requestDataFromMultipleSources().subscribe(responseList => {
-      this.elements = responseList[0];
-    });
+    this.elementSvc.element.subscribe(res => this.elements = res);
 
     this.searchForm = this.formBuilder.group({
       elements: ['', Validators.required]
     });
   }
 
-  toggleDrawer() {
+  toggleDrawer(): void {
     this.matDrawerSvc.toggle();
   }
 
   get form() { return this.searchForm.controls; }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.form.elements.value) {
       this.router.navigate([], { queryParams: { ids: this.form.elements.value } });
     }
   }
 
-  useLanguage(language: string) {
+  useLanguage(language: string): void {
     this.languageSvc.setLanguage(language);
     this.translate.use(language);
+    this.menuSvc.loadMenu();
     this.reload();
   }
 
-  reload() {
+  reload(): void {
     const uri = this.router.url.replace(/^\//, '').toString();
     const param = this.route.snapshot.queryParamMap.get('returnUrl');
 

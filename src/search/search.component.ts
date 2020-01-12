@@ -4,7 +4,7 @@ import { Helper } from '../helpers/helper';
 import { environment } from '../environments/environment';
 import { LanguageService } from '../services/language.service';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -38,7 +38,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.route.queryParamMap
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(params => (this.ids = params.getAll('ids')));
-    console.log(this.ids);
+    // console.log(this.ids);
 
     const uri = Helper.prepareUri(
       environment.apiUrl,
@@ -53,7 +53,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       });
   }
 
-  sendGetRequest(uri) {
+  sendGetRequest(uri): Observable<{}> {
     return this.httpClient.get(uri);
   }
 

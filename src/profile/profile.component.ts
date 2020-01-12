@@ -15,11 +15,7 @@ export class ProfileComponent implements OnInit {
   loading = false;
   user: User;
 
-  constructor(
-    private sessionSvc: SessionService,
-    private userService: UserService,
-    public translate: TranslateService
-  ) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.loading = true;

@@ -4,7 +4,7 @@ import { environment } from '../environments/environment';
 import { NavigationEnd, Router } from '@angular/router';
 import { LanguageService } from '../services/language.service';
 import { Helper } from '../helpers/helper';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -32,7 +32,7 @@ export class PageComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const uri = Helper.prepareUri(
       environment.apiUrl,
       this.languageSvc.getLanguage(),
@@ -46,7 +46,7 @@ export class PageComponent implements OnInit, OnDestroy {
       });
   }
 
-  sendGetRequest(uri) {
+  sendGetRequest(uri): Observable<{}> {
     return this.httpClient.get(uri);
   }
 
