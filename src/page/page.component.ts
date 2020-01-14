@@ -1,16 +1,25 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { LanguageService } from '../services/language.service';
 import { Helper } from '../helpers/helper';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-test',
   templateUrl: './page.component.html',
-  styleUrls: ['./page.component.scss']
+  styleUrls: ['./page.component.scss'],
+  animations: [
+    trigger('fade', [
+      transition('void => *', [
+        style({ opacity: 0 }),
+        animate(300, style({opacity: 1}))
+      ])
+    ])
+  ]
 })
 export class PageComponent implements OnInit, OnDestroy {
   unsubscribe: Subject<void> = new Subject<void>();
@@ -20,17 +29,7 @@ export class PageComponent implements OnInit, OnDestroy {
     private httpClient: HttpClient,
     private router: Router,
     private languageSvc: LanguageService
-  ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => {
-      return false;
-    };
-
-    this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.router.navigated = false;
-      }
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     const uri = Helper.prepareUri(

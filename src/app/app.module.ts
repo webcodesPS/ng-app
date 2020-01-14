@@ -7,6 +7,7 @@ import { AuthInterceptor } from 'src/common/interceptors/auth.interceptor';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ErrorInterceptor } from '../common/interceptors/error.interceptor';
+import { BrowserModule } from '@angular/platform-browser';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -18,6 +19,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     AppRoutingModule,
+    BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     TranslateModule.forRoot({

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
@@ -9,7 +8,6 @@ import { LayoutFooterComponent } from './layout-footer/layout-footer.component';
 import {TranslateModule} from '@ngx-translate/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,13 +18,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     LayoutRoutingModule,
     MaterialModule,
-    HttpClientModule,
     CommonModule,
     TranslateModule,
     NgSelectModule,
     FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [LayoutComponent]
