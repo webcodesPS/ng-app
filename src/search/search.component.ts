@@ -5,8 +5,9 @@ import { environment } from '../environments/environment';
 import { LanguageService } from '../services/language.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil } from 'rxjs/operators';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-test',
@@ -29,26 +30,29 @@ export class SearchComponent implements OnInit, OnDestroy {
   constructor(
     public route: ActivatedRoute,
     private httpClient: HttpClient,
-    private languageSvc: LanguageService
+    private languageSvc: LanguageService,
+    private translateSvc: TranslateService
   ) {}
 
   ngOnInit(): void {
+    this.translateSvc.onLangChange.pipe(startWith({}), takeUntil(this.unsubscribe)).subscribe(() => {
+      const uri = Helper.prepareUri(
+        environment.apiUrl,
+        this.languageSvc.getLanguage(),
+        ''
+      );
+
+      this.sendGetRequest(uri)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe(res => {
+          this.content = res;
+        });
+    });
+
     this.route.queryParamMap
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(params => (this.ids = params.getAll('ids')));
     // console.log(this.ids);
-
-    const uri = Helper.prepareUri(
-      environment.apiUrl,
-      this.languageSvc.getLanguage(),
-      ''
-    );
-
-    this.sendGetRequest(uri)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(res => {
-        this.content = res;
-      });
   }
 
   sendGetRequest(uri): Observable<{}> {

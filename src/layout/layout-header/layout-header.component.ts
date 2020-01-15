@@ -31,17 +31,7 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
     private matDrawerSvc: MatDrawerService,
     private menuSvc: MenuService,
     private elementSvc: ElementService
-  ) {
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => {
-    //   return false;
-    // };
-
-    // this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
-    //   if (event instanceof NavigationEnd) {
-    //     this.router.navigated = false;
-    //   }
-    // });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.elementSvc.element.subscribe(res => this.elements = res);
@@ -75,7 +65,7 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
     const param = this.route.snapshot.queryParamMap.get('returnUrl');
 
     this.router.navigateByUrl('', { skipLocationChange: true }).then(() =>
-      this.router.navigate([uri ? (uri.substring(0, uri.indexOf('?')) || uri) : 'home'], {queryParams: { returnUrl: param }}));
+      this.router.navigate([uri.substring(0, uri.indexOf('?')) || uri], {queryParams: { returnUrl: param }}));
   }
 
   logout(): void {
