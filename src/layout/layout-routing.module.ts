@@ -9,7 +9,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: '',
+        path: 'home',
         loadChildren: () =>
           import('../search/search.module').then(
             mod => mod.SearchModule

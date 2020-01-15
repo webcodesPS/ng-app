@@ -35,7 +35,7 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
     // this.router.routeReuseStrategy.shouldReuseRoute = () => {
     //   return false;
     // };
-    //
+
     // this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
     //   if (event instanceof NavigationEnd) {
     //     this.router.navigated = false;
@@ -74,10 +74,8 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
     const uri = this.router.url.replace(/^\//, '').toString();
     const param = this.route.snapshot.queryParamMap.get('returnUrl');
 
-    console.log(uri);
-
     this.router.navigateByUrl('', { skipLocationChange: true }).then(() =>
-      this.router.navigate([uri.substring(0, uri.indexOf('?')) || uri], {queryParams: { returnUrl: param }}));
+      this.router.navigate([uri ? (uri.substring(0, uri.indexOf('?')) || uri) : 'home'], {queryParams: { returnUrl: param }}));
   }
 
   logout(): void {
