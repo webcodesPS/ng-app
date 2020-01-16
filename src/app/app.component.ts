@@ -20,5 +20,6 @@ export class AppComponent {
     this.languageSvc.loadLanguage();
     this.menuSvc.loadMenu();
     this.elementSvc.loadElements();
+    this.searchSvc.loadSearch();
   }
 }

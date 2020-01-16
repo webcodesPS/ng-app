@@ -13,7 +13,7 @@ export interface Element {
 export class ElementService {
   private elementSubject = new BehaviorSubject<Element[]>([]);
   private dataStore: { element: any } = { element: [] };
-  readonly element = this.elementSubject.asObservable();
+  readonly element$ = this.elementSubject.asObservable();
 
   constructor(private http: HttpClient, private languageSvc: LanguageService) {}
 

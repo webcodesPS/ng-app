@@ -13,7 +13,7 @@ export interface Menu {
 export class MenuService {
   private menuSubject = new BehaviorSubject<Menu[]>([]);
   private dataStore: { menu: any } = { menu: [] };
-  readonly menu = this.menuSubject.asObservable();
+  readonly menu$ = this.menuSubject.asObservable();
 
   constructor(private http: HttpClient, private languageSvc: LanguageService) {}
 

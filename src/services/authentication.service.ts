@@ -9,7 +9,7 @@ export class AuthenticationService {
   private isRefreshInProgressSource: BehaviorSubject<
     boolean
     > = new BehaviorSubject<boolean>(false);
-  public isRefreshInProgress: Observable<
+  public isRefreshInProgress$: Observable<
     boolean
     > = this.isRefreshInProgressSource.asObservable();
 

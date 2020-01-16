@@ -18,7 +18,7 @@ import { SearchService } from '../services/search.service';
     trigger('fade', [
       transition('void => *', [
         style({ opacity: 0 }),
-        animate(300, style({opacity: 1}))
+        animate(300, style({ opacity: 1 }))
       ])
     ])
   ]
@@ -26,10 +26,9 @@ import { SearchService } from '../services/search.service';
 export class SearchComponent implements OnInit, OnDestroy {
   unsubscribe: Subject<void> = new Subject<void>();
   public content: any;
-  ids: string[];
+  ids: any;
 
   constructor(
-    public route: ActivatedRoute,
     private httpClient: HttpClient,
     private languageSvc: LanguageService,
     private translateSvc: TranslateService,
@@ -37,27 +36,27 @@ export class SearchComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-
-    // console.log('search IDs', this.searchSvc.searchIds);
-
-    this.translateSvc.onLangChange.pipe(startWith({}), takeUntil(this.unsubscribe)).subscribe(() => {
-      const uri = Helper.prepareUri(
-        environment.apiUrl,
-        this.languageSvc.getLanguage(),
-        ''
-      );
-
-      this.sendGetRequest(uri)
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe(res => {
-          this.content = res;
-        });
-    });
-
-    this.route.queryParamMap
+    this.searchSvc.ids$
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(params => (this.ids = params.getAll('ids')));
-    console.log(this.ids);
+      .subscribe(ids => {
+        this.ids = ids;
+      });
+
+    this.translateSvc.onLangChange
+      .pipe(startWith({}), takeUntil(this.unsubscribe))
+      .subscribe(() => {
+        const uri = Helper.prepareUri(
+          environment.apiUrl,
+          this.languageSvc.getLanguage(),
+          ''
+        );
+
+        this.sendGetRequest(uri)
+          .pipe(takeUntil(this.unsubscribe))
+          .subscribe(res => {
+            this.content = res;
+          });
+      });
   }
 
   sendGetRequest(uri): Observable<{}> {

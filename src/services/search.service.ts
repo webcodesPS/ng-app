@@ -2,33 +2,23 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
+export interface Ids {
+  id: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class SearchService {
-  // tslint:disable-next-line:variable-name
-  private readonly _ids = new BehaviorSubject<any[]>([]);
-  readonly ids$ = this._ids.asObservable();
+  private readonly searchSubject = new BehaviorSubject<Ids[]>([]);
+  private dataStore: { ids: any } = { ids: [] };
+  readonly ids$ = this.searchSubject.asObservable();
+
   constructor(public route: ActivatedRoute) {}
 
-  private get ids(): any[] {
-    return this._ids.getValue();
-  }
-
-  private set ids(val: any[]) {
-    this._ids.next(val);
-  }
-
-  addTodo(title: string) {
-    this.ids = [
-      ...this.ids,
-      {id: this.ids.length + 1, title, isCompleted: false}
-    ];
-  }
-
-  removeTodo(id: number) {
-    this.ids = this.ids.filter(ids => ids.id !== id);
-  }
-
-  setCompleted(id: number) {
-
+  loadSearch(): void {
+    this.route.queryParamMap.subscribe(params => {
+      console.log(params);
+      this.dataStore.ids = params.getAll('ids');
+      this.searchSubject.next(Object.assign({}, this.dataStore).ids);
+    }, error => console.log('Could not load search.'));
   }
 }

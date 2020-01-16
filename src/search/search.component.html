@@ -1,4 +1,8 @@
 <div @fade *ngFor="let item of content">
+  Search result:
+  <span *ngFor="let id of ids">
+    <b> {{ id }}</b>
+  </span>
   <div *ngFor="let c of item.contents">
     <div [innerHTML]="c.content | safeHtml"></div>
   </div>

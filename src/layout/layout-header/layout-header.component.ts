@@ -34,7 +34,9 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.elementSvc.element.subscribe(res => this.elements = res);
+    this.elementSvc.element$
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(res => (this.elements = res));
 
     this.searchForm = this.formBuilder.group({
       elements: ['', Validators.required]
@@ -45,11 +47,15 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
     this.matDrawerSvc.toggle();
   }
 
-  get form() { return this.searchForm.controls; }
+  get form() {
+    return this.searchForm.controls;
+  }
 
   onSubmit(): void {
     if (this.form.elements.value) {
-      this.router.navigate([''], { queryParams: { ids: this.form.elements.value } });
+      this.router.navigate([''], {
+        queryParams: { ids: this.form.elements.value }
+      });
     }
   }
 
@@ -64,8 +70,13 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
     const uri = this.router.url.replace(/^\//, '').toString();
     const param = this.route.snapshot.queryParamMap.get('returnUrl');
 
-    this.router.navigateByUrl('', { skipLocationChange: true }).then(() =>
-      this.router.navigate([uri.substring(0, uri.indexOf('?')) || uri], {queryParams: { returnUrl: param }}));
+    this.router
+      .navigateByUrl('', { skipLocationChange: true })
+      .then(() =>
+        this.router.navigate([uri.substring(0, uri.indexOf('?')) || uri], {
+          queryParams: { returnUrl: param }
+        })
+      );
   }
 
   logout(): void {

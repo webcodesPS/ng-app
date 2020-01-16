@@ -10,11 +10,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(err => {
-      // console.log('ErrorInterceptor: ', err.status);
       if (err.status === 401) {
-        // console.log('Unauthorized)');
-        // this.sessionSvc.logout();
-        location.reload(true);
+        this.sessionSvc.terminate();
       }
 
       const error = err.error.message || err.statusText;

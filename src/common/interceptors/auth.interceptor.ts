@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return this.authSvc.isRefreshInProgress.pipe(
+    return this.authSvc.isRefreshInProgress$.pipe(
       first(),
       switchMap(() => next.handle(this.addAuthHeader(req))),
       tap(res => {
@@ -30,7 +30,6 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }),
       catchError(err => {
-        // console.log('AuthInterceptor: ', err.status);
         if (err.status === 401) {
           this.sessionSvc.terminate();
         }
