@@ -49,7 +49,7 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.form.elements.value) {
-      this.router.navigate([], { queryParams: { ids: this.form.elements.value } });
+      this.router.navigate([''], { queryParams: { ids: this.form.elements.value } });
     }
   }
 

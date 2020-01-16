@@ -8,6 +8,7 @@ import { Observable, Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TranslateService } from '@ngx-translate/core';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-test',
@@ -31,10 +32,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     private httpClient: HttpClient,
     private languageSvc: LanguageService,
-    private translateSvc: TranslateService
+    private translateSvc: TranslateService,
+    private searchSvc: SearchService
   ) {}
 
   ngOnInit(): void {
+
+    // console.log('search IDs', this.searchSvc.searchIds);
+
     this.translateSvc.onLangChange.pipe(startWith({}), takeUntil(this.unsubscribe)).subscribe(() => {
       const uri = Helper.prepareUri(
         environment.apiUrl,
@@ -52,7 +57,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.route.queryParamMap
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(params => (this.ids = params.getAll('ids')));
-    // console.log(this.ids);
+    console.log(this.ids);
   }
 
   sendGetRequest(uri): Observable<{}> {
