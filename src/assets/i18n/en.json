@@ -4,5 +4,10 @@
   "ROLE": "Roles",
   "USER_PROFILE": "User profile",
   "SELECT_INGREDIENTS": "Select ingredients",
-  "SEARCH": "Search"
+  "SEARCH": "Search",
+  "EMAIL": "E-mail",
+  "PASSWORD": "Password",
+  "EMAIL_REQUIRED": "E-mail is required",
+  "PASS_REQUIRED": "Password is required",
+  "Invalid credentials.": "Invalid credentials."
 }

@@ -5,6 +5,7 @@ import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -14,7 +15,8 @@ import { MaterialModule } from '../shared/material.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    TranslateModule
   ],
   providers: [],
   bootstrap: [LoginComponent]

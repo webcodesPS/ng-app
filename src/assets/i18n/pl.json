@@ -4,5 +4,10 @@
   "ROLE": "Role",
   "USER_PROFILE": "Profil użytkownika",
   "SELECT_INGREDIENTS": "Wybierz składniki",
-  "SEARCH": "Wyszukaj"
+  "SEARCH": "Wyszukaj",
+  "EMAIL": "E-mail",
+  "PASSWORD": "Hasło",
+  "EMAIL_REQUIRED": "Email jest wymagany",
+  "PASS_REQUIRED": "Hasło jest wymagane",
+  "Invalid credentials.": "Niepoprawne dane logowania."
 }

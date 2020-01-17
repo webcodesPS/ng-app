@@ -3,22 +3,22 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="">
-        <input formControlName="username" matInput placeholder="Username" [ngClass]="{ 'is-invalid': submitted && form.username.errors }">
+        <input formControlName="username" matInput placeholder="{{ 'EMAIL' | translate }}" [ngClass]="{ 'is-invalid': submitted && form.username.errors }">
         <div *ngIf="submitted && form.username.errors" class="invalid-feedback">
-          <div *ngIf="form.username.errors.required">Username is required</div>
+          <div *ngIf="form.username.errors.required">{{ 'EMAIL_REQUIRED' | translate }}</div>
         </div>
       </mat-form-field>
 
       <mat-form-field class="">
-        <input formControlName="password" type="password" matInput placeholder="Password" [ngClass]="{ 'is-invalid': submitted && form.password.errors }">
+        <input formControlName="password" type="password" matInput placeholder="{{ 'PASSWORD' | translate }}" [ngClass]="{ 'is-invalid': submitted && form.password.errors }">
         <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
-          <div *ngIf="form.password.errors.required">Password is required</div>
+          <div *ngIf="form.password.errors.required">{{ 'PASS_REQUIRED' | translate }}</div>
         </div>
       </mat-form-field>
 
       <button mat-button [disabled]="loading">Login</button>
 
-      <div *ngIf="errorMessage" class="alert">{{ errorMessage.error.message }}</div>
+      <div *ngIf="errorMessage" class="alert">{{ errorMessage | translate }}</div>
     </form>
 
   </mat-grid-tile>

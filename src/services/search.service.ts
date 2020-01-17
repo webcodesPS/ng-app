@@ -16,7 +16,6 @@ export class SearchService {
 
   loadSearch(): void {
     this.route.queryParamMap.subscribe(params => {
-      console.log(params);
       this.dataStore.ids = params.getAll('ids');
       this.searchSubject.next(Object.assign({}, this.dataStore).ids);
     }, error => console.log('Could not load search.'));
