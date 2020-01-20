@@ -18,7 +18,7 @@
           [closeOnSelect]="false"
         >
           <ng-option *ngFor="let item of elements" [value]="item.id">{{
-              item.name
+              item.contents[0].content
             }}</ng-option>
         </ng-select>
         <mat-button-toggle (tap)="onSubmit()">

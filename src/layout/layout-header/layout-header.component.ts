@@ -63,6 +63,7 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
     this.languageSvc.setLanguage(language);
     this.translate.use(language);
     this.menuSvc.loadMenu();
+    this.elementSvc.loadElements();
     this.reload();
   }
 

@@ -1,8 +1,9 @@
 <div @fade *ngFor="let item of content">
-  Search result:
-  <span *ngFor="let id of ids">
-    <b> {{ id }}</b>
-  </span>
+  <h2>Search result:</h2>
+  <div *ngFor="let item of collection">
+    <p>{{ item.name }}</p>
+    <img *ngIf="item.media" [src]="env.cdnUrl + '/media/image/small/' + item.media.id">
+  </div>
   <div *ngFor="let c of item.contents">
     <div [innerHTML]="c.content | safeHtml"></div>
   </div>
