@@ -26,8 +26,9 @@ import { SearchService } from '../services/search.service';
 export class SearchComponent implements OnInit, OnDestroy {
   unsubscribe: Subject<void> = new Subject<void>();
   env: any = environment;
-  public content: any;
-  collection: any = null;
+  content: any;
+  collection: any = [];
+  dataSource = [];
   ids: any;
 
   constructor(
@@ -38,33 +39,35 @@ export class SearchComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const uri = Helper.prepareUri(
-      this.env.apiUrl,
-      this.languageSvc.getLanguage(),
-      ''
-    );
-
     this.searchSvc.ids$
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(ids => {
         this.ids = ids;
-
-        this.sendGetCollection(uri + '/collection', ids)
+        this.sendGetCollection(this.getUri(this.languageSvc.getLanguage()) + '/collection', ids)
           .pipe(takeUntil(this.unsubscribe))
           .subscribe(res => {
             this.collection = res;
+            // this.dataSource = res;
           });
       });
 
     this.translateSvc.onLangChange
       .pipe(startWith({}), takeUntil(this.unsubscribe))
       .subscribe(() => {
-        this.sendGetContent(uri)
+        this.sendGetContent(this.getUri(this.languageSvc.getLanguage()))
           .pipe(takeUntil(this.unsubscribe))
           .subscribe(res => {
             this.content = res;
           });
       });
+  }
+
+  getUri(lang: string): string {
+    return  Helper.prepareUri(
+      this.env.apiUrl,
+      lang,
+      ''
+    );
   }
 
   sendGetContent(uri): Observable<{}> {

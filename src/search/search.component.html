@@ -1,10 +1,16 @@
-<div @fade *ngFor="let item of content">
-  <h2>Search result:</h2>
-  <div *ngFor="let item of collection">
-    <p>{{ item.name }}</p>
+<ng-container @fade>
+  <div *ngFor="let item of content">
+    <div *ngFor="let c of item.contents">
+      <div [innerHTML]="c.content | safeHtml"></div>
+    </div>
+  </div>
+  <h2 *ngIf="collection.length">Search result:</h2>
+
+  <div *ngFor="let item of collection" class="collection-item">
     <img *ngIf="item.media" [src]="env.cdnUrl + '/media/image/small/' + item.media.id">
+    <div>
+      <h2>{{ item.name }}</h2>
+    </div>
+    <div [innerHTML]="item.description | safeHtml"></div>
   </div>
-  <div *ngFor="let c of item.contents">
-    <div [innerHTML]="c.content | safeHtml"></div>
-  </div>
-</div>
+</ng-container>
