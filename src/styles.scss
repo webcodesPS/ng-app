@@ -86,6 +86,9 @@ body {
 }
 
 .ng-dropdown-panel {
+  &.ng-select-bottom {
+    margin-left: 5px;
+  }
   .ng-dropdown-panel-items {
     .ng-option {
       &.ng-option-selected {

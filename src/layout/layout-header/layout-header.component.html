@@ -1,59 +1,58 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-
-    <button mat-button (click)="toggleDrawer()">
-      <mat-icon>reorder</mat-icon>
-    </button>
-
-    <span class="spacer"></span>
-
-    <form [formGroup]="searchForm">
-      <mat-button-toggle-group appearance="legacy">
-        <ng-select
-          bindLabel="company"
-          appendTo="body"
-          multiple="true"
-          formControlName="elements"
-          [placeholder]="'SELECT_INGREDIENTS' | translate"
-          [closeOnSelect]="false"
+      <div>
+        <button mat-button (click)="toggleDrawer()">
+          <mat-icon>reorder</mat-icon>
+        </button>
+      </div>
+      <div>
+        <form [formGroup]="searchForm">
+          <mat-button-toggle-group appearance="legacy">
+            <ng-select
+              bindLabel="company"
+              appendTo="body"
+              multiple="true"
+              formControlName="elements"
+              [placeholder]="'SELECT_INGREDIENTS' | translate"
+              [closeOnSelect]="false"
+            >
+              <ng-option *ngFor="let item of elements" [value]="item.id">{{
+                item.contents[0].content
+                }}</ng-option>
+            </ng-select>
+            <mat-button-toggle (tap)="onSubmit()">
+              <mat-icon>gps_fixed</mat-icon>
+              {{ 'SEARCH' | translate }}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </form>
+      </div>
+      <div>
+        <button mat-button routerLink="/profile">
+          {{ 'USER_PROFILE' | translate }}
+        </button>
+        <button
+          mat-button
+          *ngIf="sessionSvc.isLoggedInSync | async"
+          (tap)="logout()"
         >
-          <ng-option *ngFor="let item of elements" [value]="item.id">{{
-              item.contents[0].content
-            }}</ng-option>
-        </ng-select>
-        <mat-button-toggle (tap)="onSubmit()">
-          <mat-icon>gps_fixed</mat-icon>
-          {{ 'SEARCH' | translate }}
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-    </form>
-
-    <span class="spacer"></span>
-
-    <button mat-button routerLink="/profile">
-      {{ 'USER_PROFILE' | translate }}
-    </button>
-    <button
-      mat-button
-      *ngIf="sessionSvc.isLoggedInSync | async"
-      (tap)="logout()"
-    >
-      Logout
-    </button>
-    <button
-      mat-button
-      *ngIf="!(sessionSvc.isLoggedInSync | async)"
-      routerLink="/login"
-    >
-      Login
-    </button>
-    <button mat-button (click)="useLanguage('pl')">
-      <span class="flag-icon flag-icon-pl flag-icon-squared"></span>
-      PL
-    </button>
-    <button mat-button (click)="useLanguage('en')">
-      <span class="flag-icon flag-icon-gb flag-icon-squared"></span>
-      EN
-    </button>
+          Logout
+        </button>
+        <button
+          mat-button
+          *ngIf="!(sessionSvc.isLoggedInSync | async)"
+          routerLink="/login"
+        >
+          Login
+        </button>
+        <button mat-button (click)="useLanguage('pl')">
+          <span class="flag-icon flag-icon-pl flag-icon-squared"></span>
+          PL
+        </button>
+        <button mat-button (click)="useLanguage('en')">
+          <span class="flag-icon flag-icon-gb flag-icon-squared"></span>
+          EN
+        </button>
+      </div>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SessionService } from '../../services/session.service';
-import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -69,14 +68,19 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
 
   reload(): void {
     const uri = this.router.url.replace(/^\//, '').toString();
-    const param = this.route.snapshot.queryParamMap.get('returnUrl');
+    const keys = this.route.snapshot.queryParamMap.keys;
 
     this.router
       .navigateByUrl('', { skipLocationChange: true })
-      .then(() =>
-        this.router.navigate([uri.substring(0, uri.indexOf('?')) || uri], {
-          queryParams: { returnUrl: param }
-        })
+      .then(() => {
+        if (keys && keys[0] === 'returnUrl') {
+          this.router.navigate([uri.substring(0, uri.indexOf('?')) || uri], {
+            queryParams: { returnUrl: this.route.snapshot.queryParamMap.get('returnUrl') }
+          });
+        } else {
+          this.router.navigate([uri.substring(0, uri.indexOf('?'))]);
+        }
+      }
       );
   }
 

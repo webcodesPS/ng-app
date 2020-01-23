@@ -4,15 +4,21 @@
     margin-right: 20px;
   }
 
-  .spacer {
-    flex: auto;
-  }
-
   mat-toolbar {
-    mat-button-toggle-group {
-      mat-button-toggle {
-        background-color: #f3f3f3;
-        color: rgba(4, 4, 4, 0.65);
+    mat-toolbar-row {
+      div {
+        width: 33%;
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+
+      mat-button-toggle-group {
+        mat-button-toggle {
+          background-color: #f3f3f3;
+          color: rgba(4, 4, 4, 0.65);
+        }
       }
     }
   }
