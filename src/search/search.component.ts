@@ -9,7 +9,8 @@ import { catchError, startWith, takeUntil } from 'rxjs/operators';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../services/search.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { CollectionService } from '../services/collection.service';
 
 @Component({
   selector: 'app-test',
@@ -28,15 +29,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   unsubscribe: Subject<void> = new Subject<void>();
   env: any = environment;
   content: any;
-  collection: any = [];
-  ids: any;
+  collection: any[] = [];
+  ids: number[] = [];
 
   constructor(
     private httpClient: HttpClient,
     private languageSvc: LanguageService,
     private translateSvc: TranslateService,
     private searchSvc: SearchService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private collectionSvc: CollectionService
   ) {}
 
   ngOnInit(): void {
@@ -44,17 +46,22 @@ export class SearchComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(ids => {
         this.ids = ids;
-        this.sendGetCollection(this.getUri(this.languageSvc.getLanguage()) + '/collection', ids)
-          .pipe(takeUntil(this.unsubscribe))
-          .subscribe(res => {
-            this.collection = res;
 
-            if (this.collection < 1) {
-              this.openSnackBar('Brak danych', 'OK');
-            }
-          }, error => {
-            this.openSnackBar('Coś poszło nie tak', 'OK');
-          });
+        if (this.ids.length) {
+          this.collectionSvc.loadCollections(ids);
+        }
+      });
+
+    this.collectionSvc.collection$
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(res => {
+        this.collection = res;
+        console.log(this.ids, res);
+        if (this.collection.length < 1) {
+          this.openSnackBar('Brak danych', 'OK');
+        }
+      }, () => {
+        this.openSnackBar('Coś poszło nie tak', 'OK');
       });
 
     this.translateSvc.onLangChange
@@ -80,12 +87,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     return this.httpClient.get(uri);
   }
 
-  sendGetCollection(uri, params): Observable<{}> {
-    return this.httpClient.post(uri, params);
-  }
-
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
       duration: 5000,
     });
   }

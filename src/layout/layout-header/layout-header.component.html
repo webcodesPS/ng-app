@@ -38,14 +38,14 @@
           *ngIf="sessionSvc.isLoggedInSync | async"
           (tap)="logout()"
         >
-          Logout
+          {{ 'LOGOUT' | translate }}
         </button>
         <button
           mat-button
           *ngIf="!(sessionSvc.isLoggedInSync | async)"
           routerLink="/login"
         >
-          Login
+          {{ 'LOGIN' | translate }}
         </button>
         <button mat-button (click)="useLanguage('pl')">
           <span class="flag-icon flag-icon-pl flag-icon-squared"></span>

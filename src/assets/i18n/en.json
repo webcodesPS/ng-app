@@ -2,6 +2,8 @@
   "HOME_PAGE": "Home page",
   "USER": "User",
   "ROLE": "Roles",
+  "LOGIN": "Login",
+  "LOGOUT": "Logout",
   "USER_PROFILE": "User profile",
   "SELECT_INGREDIENTS": "Select ingredients",
   "SEARCH": "Search",
@@ -9,5 +11,6 @@
   "PASSWORD": "Password",
   "EMAIL_REQUIRED": "E-mail is required",
   "PASS_REQUIRED": "Password is required",
-  "Invalid credentials.": "Invalid credentials."
+  "Invalid credentials.": "Invalid credentials.",
+  "SEARCH_RESULTS": "Search results"
 }

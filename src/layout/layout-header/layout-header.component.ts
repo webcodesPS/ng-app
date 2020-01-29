@@ -9,6 +9,7 @@ import { MenuService } from '../../services/menu.service';
 import { ElementService } from '../../services/element.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { CollectionService } from '../../services/collection.service';
 
 @Component({
   selector: 'app-layout-header',
@@ -29,7 +30,8 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private matDrawerSvc: MatDrawerService,
     private menuSvc: MenuService,
-    private elementSvc: ElementService
+    private elementSvc: ElementService,
+    private collectionSvc: CollectionService
   ) {}
 
   ngOnInit(): void {
@@ -73,15 +75,21 @@ export class LayoutHeaderComponent implements OnInit, OnDestroy {
     this.router
       .navigateByUrl('', { skipLocationChange: true })
       .then(() => {
-        if (keys && keys[0] === 'returnUrl') {
-          this.router.navigate([uri.substring(0, uri.indexOf('?')) || uri], {
-            queryParams: { returnUrl: this.route.snapshot.queryParamMap.get('returnUrl') }
-          });
-        } else {
-          this.router.navigate([uri.substring(0, uri.indexOf('?'))]);
+        switch (keys[0]) {
+          case 'returnUrl':
+            this.router.navigate([uri.substring(0, uri.indexOf('?')) || uri], {
+              queryParams: { returnUrl: this.route.snapshot.queryParamMap.get('returnUrl') }
+            });
+            break;
+          case 'ids':
+            this.router.navigate([uri.substring(0, uri.indexOf('?'))], {
+              queryParams: { ids: this.form.elements.value }
+            });
+            break;
+          default:
+            this.router.navigate([uri]);
         }
-      }
-      );
+      });
   }
 
   logout(): void {

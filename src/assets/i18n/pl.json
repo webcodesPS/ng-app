@@ -2,6 +2,8 @@
   "HOME_PAGE": "Strona główna",
   "USER": "Użytkownik",
   "ROLE": "Role",
+  "LOGIN": "Zaloguj",
+  "LOGOUT": "Wyloguj",
   "USER_PROFILE": "Profil użytkownika",
   "SELECT_INGREDIENTS": "Wybierz składniki",
   "SEARCH": "Wyszukaj",
@@ -9,5 +11,6 @@
   "PASSWORD": "Hasło",
   "EMAIL_REQUIRED": "Email jest wymagany",
   "PASS_REQUIRED": "Hasło jest wymagane",
-  "Invalid credentials.": "Niepoprawne dane logowania."
+  "Invalid credentials.": "Niepoprawne dane logowania.",
+  "SEARCH_RESULTS": "Wyniki wyszukiwania\n"
 }
