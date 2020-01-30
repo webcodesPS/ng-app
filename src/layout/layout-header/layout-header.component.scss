@@ -7,10 +7,15 @@
   mat-toolbar {
     mat-toolbar-row {
       div {
-        width: 33%;
+        display: flex;
+
+        &:first-child {
+          flex: 0.5;
+        }
 
         &:last-child {
-          text-align: right;
+          flex: 0.5;
+          flex-flow: row-reverse;
         }
       }
 

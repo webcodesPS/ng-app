@@ -5,6 +5,7 @@
           <mat-icon>reorder</mat-icon>
         </button>
       </div>
+
       <div>
         <form [formGroup]="searchForm">
           <mat-button-toggle-group appearance="legacy">
@@ -29,16 +30,15 @@
           </mat-button-toggle-group>
         </form>
       </div>
+
       <div>
-        <button mat-button routerLink="/profile">
-          {{ 'USER_PROFILE' | translate }}
+        <button mat-button (click)="useLanguage('en')">
+          <span class="flag-icon flag-icon-gb flag-icon-squared"></span>
+          EN
         </button>
-        <button
-          mat-button
-          *ngIf="sessionSvc.isLoggedInSync | async"
-          (tap)="logout()"
-        >
-          {{ 'LOGOUT' | translate }}
+        <button mat-button (click)="useLanguage('pl')">
+          <span class="flag-icon flag-icon-pl flag-icon-squared"></span>
+          PL
         </button>
         <button
           mat-button
@@ -47,13 +47,15 @@
         >
           {{ 'LOGIN' | translate }}
         </button>
-        <button mat-button (click)="useLanguage('pl')">
-          <span class="flag-icon flag-icon-pl flag-icon-squared"></span>
-          PL
+        <button
+          mat-button
+          *ngIf="sessionSvc.isLoggedInSync | async"
+          (tap)="logout()"
+        >
+          {{ 'LOGOUT' | translate }}
         </button>
-        <button mat-button (click)="useLanguage('en')">
-          <span class="flag-icon flag-icon-gb flag-icon-squared"></span>
-          EN
+        <button mat-button routerLink="/profile">
+          {{ 'USER_PROFILE' | translate }}
         </button>
       </div>
   </mat-toolbar-row>
