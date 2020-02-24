@@ -60,7 +60,7 @@ p {
   font: unset;
 
   &.mat-primary {
-    background: #0e4012;
+    background: #4f7aa2;
     //background: linear-gradient(90deg, #01a9a9 0%, #d200c3 34%, #05a1ff 100%);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   }
@@ -129,11 +129,11 @@ p {
 }
 
 .mat-snack-bar-container {
-  color: rgba(182, 227, 133, 0.7);
+  color: rgb(113, 179, 214);
   background: #000000;
   box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
 }
 
 .mat-simple-snackbar-action {
-  color: #86e47b;
+  color: #6ce8ff;
 }

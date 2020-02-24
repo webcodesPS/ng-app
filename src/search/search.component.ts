@@ -91,7 +91,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.snackBar.open(message, action, {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
-      duration: 5000,
+      duration: 95000,
     });
   }
 
